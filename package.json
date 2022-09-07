@@ -1,0 +1,25 @@
+{
+  "name": "backendqr",
+  "version": "1.0.0",
+  "description": "Backend Realizado para el registro de alumnos de la Universidad Autonoma de Chiapas en el evento del Simposio del año 2022",
+  "author": "Billy Alexander de la Cruz Duque",
+  "main": "app.js",
+  "scripts": {
+    "start:dev": "nodemon app.js",
+    "start": "node app.js"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1",
+    "express-validator": "^6.14.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.5.4"
+  },
+  "devDependencies": {
+    "node-moment": "^2.5.1"
+  }
+}
