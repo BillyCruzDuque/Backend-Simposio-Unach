@@ -6,6 +6,7 @@ const {
     alumnosGet,
     alumnosGetMatricula,
     alumnosPost,
+    alumnosPut
 } = require('../controllers/alumnos');
 
 const {
@@ -14,14 +15,14 @@ const {
 
 const {
     matriculaExiste,
-    esLicenValido
+    esLicenValido, matriculaVerificar
 } = require('../helpers/db-validators');
 
 
 
 const router = Router();
 
- router.get('/', alumnosGet);
+router.get('/', alumnosGet);
 
 router.get('/:matricula', alumnosGetMatricula);
 
@@ -38,5 +39,15 @@ router.post(
         validarCampos
     ],
     alumnosPost);
+
+router.put(
+    '/:matricula',
+    [
+        check('matricula', 'La matricula es obligatoria').not().isEmpty(),
+        check('matricula').custom(matriculaVerificar),
+        validarCampos
+    ],
+    alumnosPut
+);
 
 module.exports = router;

@@ -36,6 +36,10 @@ const AlumnoSchema = Schema({
         default: Date.now(),
     }
 });
-
+AlumnoSchema.methods.toJSON = function() {
+    const {__v, _id, creacion,...alumnos } = this.toObject();
+    alumnos.uid = _id;
+    return alumnos;
+}
 
 module.exports = model('Alumno', AlumnoSchema);

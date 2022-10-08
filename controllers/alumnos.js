@@ -44,8 +44,21 @@ const alumnosPost = async (req, res = response) => {
     });
 };
 
+const alumnosPut = async (req, res = response) => {
+
+    const { matricula } = req.params;
+    const { _id, ...resto } = req.body;
+
+    const alumno = await Alumno.findOneAndUpdate(matricula, resto, { new: true });
+
+    return res.status(201).json({
+        msg: 'Alumno Actualizado', alumno,
+    });
+}
+
 module.exports = {
     alumnosGet,
     alumnosGetMatricula,
-    alumnosPost
+    alumnosPost,
+    alumnosPut
 };
