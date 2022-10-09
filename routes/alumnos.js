@@ -4,7 +4,7 @@ const { check } = require('express-validator');
 
 const {
     alumnosGet,
-    alumnosGetMatricula,
+    alumnosGetFiltro,
     alumnosPost,
     alumnosPut
 } = require('../controllers/alumnos');
@@ -18,13 +18,16 @@ const {
     esLicenValido, matriculaVerificar
 } = require('../helpers/db-validators');
 
-
-
 const router = Router();
 
 router.get('/', alumnosGet);
 
-router.get('/:matricula', alumnosGetMatricula);
+router.get('/:tipo/:dato',
+    [
+        check('tipo', 'El tipo no es valido').isIn(['matricula', 'nombre', 'licenciatura', 'turno', 'semestre', 'grupo']), check('dato', 'El dato no es valido').not().isEmpty(),
+        validarCampos
+    ],
+    alumnosGetFiltro);
 
 router.post(
     '/',

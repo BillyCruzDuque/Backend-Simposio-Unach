@@ -1,7 +1,6 @@
 const { response, request } = require('express');
 const Alumno = require('../models/alumno');
 
-
 const alumnosGet = async (req = request, res = response) => {
     const { limite = 5, desde = 0 } = req.query;
 
@@ -17,12 +16,15 @@ const alumnosGet = async (req = request, res = response) => {
     });
 };
 
-const alumnosGetMatricula = async (req = request, res = response) => {
-        const { matricula } = req.params;
-        const alumno = await Alumno.findOne({ matricula });
-        return res.status(201).json({
-            msg: 'Datos de Alumno', alumno,
-        });
+const alumnosGetFiltro= async (req = request, res = response) => {
+    const {tipo} = req.params;
+    const {dato} = req.params;
+
+    const alumno = await Alumno.find({[tipo]: dato});
+
+    return res.status(201).json({
+        msg: 'Datos de Filtrados de alumno(s)', alumno,
+    });
 }
 
 const alumnosPost = async (req, res = response) => {
@@ -49,8 +51,7 @@ const alumnosPut = async (req, res = response) => {
     const { matricula } = req.params;
     const { _id, ...resto } = req.body;
 
-    const alumno = await Alumno.findOneAndUpdate(matricula, resto, { new: true });
-
+    const alumno = await Alumno.findOneAndUpdate({matricula: matricula}, resto, { new: true });
     return res.status(201).json({
         msg: 'Alumno Actualizado', alumno,
     });
@@ -58,7 +59,7 @@ const alumnosPut = async (req, res = response) => {
 
 module.exports = {
     alumnosGet,
-    alumnosGetMatricula,
+    alumnosGetFiltro,
     alumnosPost,
     alumnosPut
 };

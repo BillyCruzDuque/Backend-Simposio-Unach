@@ -5,7 +5,9 @@ const { check } = require('express-validator');
 const {
     asistenciasGet,
     asistenciaGetMatricula,
+
     asistenciaPost,
+
 } = require('../controllers/asistencias');
 
 const {
